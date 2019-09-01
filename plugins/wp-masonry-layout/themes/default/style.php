@@ -1,5 +1,5 @@
 <style>
-.wmle_container .wmle_item{border:1px solid #e5e5e5;margin: 0 2.75%;margin-bottom: 5%;padding:15px;-webkit-box-shadow: 0px 0px 3px -1px #959595;box-shadow: 0px 0px 3px -1px #959595;overflow: hidden;font-family: Montserrat, "Helvetica Neue", sans-serif;}
+.wmle_container .wmle_item{border:1px solid #e5e5e5;margin: 0 0.5rem;margin-bottom: 5%;padding:15px;-webkit-box-shadow: 0px 0px 3px -1px #959595;box-shadow: 0px 0px 3px -1px #959595;overflow: hidden;font-family: Montserrat, "Helvetica Neue", sans-serif;}
 .wmle_container .wmle_item .wpme_image{text-align:center;margin:-15px;margin-bottom:15px;max-height:350px;overflow: hidden;}
 .wmle_container .wmle_item .wpme_image img{border-radius:0px !important; box-shadow:none !important;}
 .wmle_container .wmle_item .wmle_post_meta{color:#68717b; font-size:0.8rem;line-height:1.5; padding-bottom:6px;}
