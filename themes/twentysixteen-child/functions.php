@@ -46,7 +46,7 @@ function my_get_post_thumbnail() {
 					'post_type' => 'attachment',
 				)
 			) as $first_attachment_image ) {
-				echo '<img src="' . wp_get_attachment_url( $first_attachment_image->ID ) . '" >';
+				echo wp_get_attachment_image( $first_attachment_image->ID , $size = 'post-thumbnail' );
 		}
 	}
 }
