@@ -12,6 +12,11 @@ jQuery(document).ready( function() {
 		containerDivId  	= jQuery(this).attr("rel")
 		pageNumber 			= jQuery("#"+containerDivId).attr("data-page");
 		randSeed 			= jQuery("#"+containerDivId).attr("data-seed");
+		
+		if (jQuery("#"+containerDivId).attr("data-load-status") !== "ready") {
+			return;
+		}
+		
 		jQuery("#"+containerDivId).attr("data-load-status",'no');
 		if (pageNumber == null){
 		  pageNumber = 1;
@@ -46,10 +51,9 @@ jQuery(document).ready( function() {
 				}
 			},
 			error: function() {
-				loading_icon.hide();
-				loadmore_btn.html("Error. Press to reload");
-				
-				containerDiv.attr("data-load-status", "ready");
+				jQuery("img.loading_icon").hide();
+				jQuery('.wmle_loadmore_btn').html("Error. Press to reload");
+				jQuery("#"+containerDivId).attr("data-load-status", "ready");
 			}
 		})
 	})   
