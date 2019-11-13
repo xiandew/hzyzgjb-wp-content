@@ -19,7 +19,7 @@ class SmartSlider3 {
             wp_redirect(admin_url('admin.php?page=' . NEXTEND_SMARTSLIDER_3_URL_PATH));
             exit;
         }
-        require_once dirname(__FILE__) . '/summersale.php';
+        require_once dirname(__FILE__) . '/blackfriday.php';
     
     
 

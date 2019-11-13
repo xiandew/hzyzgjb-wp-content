@@ -4,7 +4,7 @@
  * Plugin Name: Max Mega Menu
  * Plugin URI:  https://www.megamenu.com
  * Description: An easy to use mega menu plugin. Written the WordPress way.
- * Version:     2.7.1.4
+ * Version:     2.7.3
  * Author:      megamenu.com
  * Author URI:  https://www.megamenu.com
  * License:     GPL-2.0+
@@ -36,7 +36,7 @@ final class Mega_Menu {
     /**
      * @var string
      */
-    public $version = '2.7.1.4';
+    public $version = '2.7.3';
 
 
     /**
@@ -453,8 +453,9 @@ final class Mega_Menu {
         $args = (object) $args;
         
         // make sure we're working with a Mega Menu
-        if ( ! is_a( $args->walker, 'Mega_Menu_Walker' ) )
+        if ( ! $args->walker || ! is_a( $args->walker, 'Mega_Menu_Walker' ) ) {
             return $nav_menu;
+        }
 
         $find = 'class="' . $args->container_class . '">';
 
@@ -484,7 +485,7 @@ final class Mega_Menu {
         $args = (object) $args;
 
         // make sure we're working with a Mega Menu
-        if ( ! is_a( $args->walker, 'Mega_Menu_Walker' ) ) {
+        if ( ! $args->walker || ! is_a( $args->walker, 'Mega_Menu_Walker' ) ) {
             return $items;
         }
 
@@ -1077,14 +1078,31 @@ final class Mega_Menu {
                 }
             }
 
+
+            $effect_mobile = 'disabled';
+
+            if ( isset( $menu_settings['effect_mobile'] ) ) {
+                $effect_mobile = $menu_settings['effect_mobile'];
+            }
+
+            $effect_speed_mobile = 200;
+
+            if ( isset( $menu_settings['effect_speed_mobile'] ) ) {
+                $effect_speed_mobile = $menu_settings['effect_speed_mobile'];
+            }
+
+            if ( $effect_mobile == 'disabled' ) {
+                $effect_speed_mobile = 0;
+            }
+
             $wrap_attributes = apply_filters("megamenu_wrap_attributes", array(
                 "id" => '%1$s',
                 "class" => '%2$s mega-no-js',
                 "data-event" => $event,
                 "data-effect" => $effect,
                 "data-effect-speed" => isset( $menu_settings['effect_speed'] ) ? $menu_settings['effect_speed'] : '200',
-                "data-effect-mobile" => isset( $menu_settings['effect_mobile'] ) ? $menu_settings['effect_mobile'] : 'disabled',
-                "data-effect-speed-mobile" => isset( $menu_settings['effect_speed_mobile'] ) ? $menu_settings['effect_speed_mobile'] : '200',
+                "data-effect-mobile" => $effect_mobile,
+                "data-effect-speed-mobile" => $effect_speed_mobile,
                 "data-panel-width" => preg_match('/^\d/', $menu_theme['panel_width']) !== 1 ? $menu_theme['panel_width'] : '',
                 "data-panel-inner-width" => substr( $menu_theme['panel_inner_width'], -1 ) !== '%' ? $menu_theme['panel_inner_width'] : '',
                 "data-mobile-force-width" => $mobile_force_width,

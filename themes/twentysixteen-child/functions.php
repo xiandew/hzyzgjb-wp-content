@@ -226,6 +226,9 @@ function custom_login_style() {
 			.login form .forgetmenot {
 				margin: 0 0.25rem 1rem !important;
 			}
+			.login .button.wp-hide-pw {
+				top: 0.6rem;
+			}
 		</style>';
 }
 add_action('login_head', 'custom_login_style');

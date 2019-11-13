@@ -20,6 +20,11 @@ class FusionSmartSlider3 extends Fusion_Element {
     public function __construct() {
         parent::__construct();
 
+        add_action('wp_ajax_get_shortcode_render', array(
+            $this,
+            'force_iframe'
+        ));
+
         add_shortcode('fusion_smartslider3', array(
             $this,
             'render'
@@ -29,6 +34,10 @@ class FusionSmartSlider3 extends Fusion_Element {
     public function render($args, $content = '') {
 
         return do_shortcode('[smartslider3 slider="' . $args['slider'] . '"]');
+    }
+
+    public function force_iframe() {
+        \N2SS3Shortcode::forceIframe('fusion');
     }
 }
 

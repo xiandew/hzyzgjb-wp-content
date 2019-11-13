@@ -433,10 +433,10 @@ class N2SmartsliderSlidesModel extends N2Model {
 
     public function quickSlideUpdate($slide, $title, $description, $link, $hreftarget) {
 
-        $params                 = json_decode($slide['params'], true);
+        $params = json_decode($slide['params'], true);
         unset($params['link']);
-        $params['href']         = $link;
-        $params['href-target']  = $hreftarget;
+        $params['href']        = $link;
+        $params['href-target'] = $hreftarget;
 
         return $this->db->update(array(
             'title'       => $title,
@@ -558,8 +558,8 @@ class N2SmartsliderSlidesModel extends N2Model {
             'backgroundColor'        => '000000FF'
         );
 
-        $title       = $data->get('title');
-        $description = $data->get('description');
+        $title       = $this->removeFourByteChars($data->get('title'));
+        $description = $this->removeFourByteChars($data->get('description'));
 
 
         $parameters['version'] = N2SS3::$version;

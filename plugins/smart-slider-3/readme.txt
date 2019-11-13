@@ -3,9 +3,9 @@ Contributors: nextendweb
 Tags: slider, wordpress slider, image slider, layer slider, responsive slider, slideshow, fullwidth slider, post slider, horizontal slider, vertical slider, photo slider, video slider
 Donate link: https://sites.fastspring.com/nextend/product/smartslider3donate
 Requires at least: 4.6
-Tested up to: 5.2
-Stable tag: 3.3.21
-Requires PHP: 5.4
+Tested up to: 5.3
+Stable tag: 3.3.23
+Requires PHP: 5.6.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -196,6 +196,25 @@ Of course! Smart Slider use protocol relative urls which works fine on http:// a
 
 == Changelog ==
 
+= 3.3.23 - 12. November 2019. =
+* Fix: RTL fix on admin area
+
+= 3.3.22 - 04. September 2019. =
+* Feature: Accessibility; the arrow's aria label is now the same as their alt tag 
+* Feature: New Google fonts added
+* Fix: Layer defaults 
+* Fix: YouTube video play on IOS in rare cases 
+* Fix: Padding issue in Thumbnails control 
+* Fix: Alias notice 
+* Fix: Toolset multiple embedding 
+* Fix: 4 byte characters removed from Add Post 
+* Fix: inline CSS parsing of :FOCUS selector  
+* Fix: hold touch action while main animation playing 
+* Fix: remove WordPress actions when multisite created
+* Fix: WP Smush image optimization won't mess up the slider anymore 
+* Translation: Spanish translation, thanks to Rodrigo! 
+* Deprecated: Smart Slider 3 will no longer run on PHP 5.4 or 5.5 version. The new minimum PHP version the slider requires is PHP 5.6.20! 
+
 = 3.3.21 - 05. July 2019. =
 * Feature: Slider default font size now uses rem instead of px
 * Fix: Col border
@@ -206,7 +225,6 @@ Of course! Smart Slider use protocol relative urls which works fine on http:// a
 * Other: French translation updated
 * Other: Spanish translation updated
 * Deprecated: Modernizr removed from the slider
-
 
 = 3.3.20 - 23. May 2019. =
 * Feature: WordPress Fusion builder element for Avada theme 

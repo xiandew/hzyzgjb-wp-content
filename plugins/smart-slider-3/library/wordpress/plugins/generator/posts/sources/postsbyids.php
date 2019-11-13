@@ -17,10 +17,9 @@ class N2GeneratorPostsPostsByIDs extends N2GeneratorAbstract {
     }
 
     protected function _getData($count, $startIndex) {
-        global $post, $wp_the_query;
-        $tmpPost         = $post;
-        $tmpWp_the_query = $wp_the_query;
-        $wp_the_query    = null;
+        global $post, $wp_query;
+        $tmpPost = $post;
+
         if (has_filter('the_content', 'siteorigin_panels_filter_content')) {
             $siteorigin_panels_filter_content = true;
             remove_filter('the_content', 'siteorigin_panels_filter_content');
@@ -36,6 +35,7 @@ class N2GeneratorPostsPostsByIDs extends N2GeneratorAbstract {
             $post   = get_post($id);
             if (!$post) continue;
             setup_postdata($post);
+            $wp_query->post = $post;
 
             $record['id'] = $post->ID;
 
@@ -99,7 +99,7 @@ class N2GeneratorPostsPostsByIDs extends N2GeneratorAbstract {
                                 $record[$k] = $v['url'];
                             } else if (is_array($v)) {
                                 foreach ($v AS $v_v => $k_k) {
-                                    if(is_array($k_k) && isset($k_k['url'])){
+                                    if (is_array($k_k) && isset($k_k['url'])) {
                                         $record[$k . $v_v] = $k_k['url'];
                                     }
                                 }
@@ -117,14 +117,14 @@ class N2GeneratorPostsPostsByIDs extends N2GeneratorAbstract {
                     }
                 }
             }
-            if(isset($record['primarytermcategory'])){
-                $primary = get_category($record['primarytermcategory']);
+            if (isset($record['primarytermcategory'])) {
+                $primary                         = get_category($record['primarytermcategory']);
                 $record['primary_category_name'] = $primary->name;
                 $record['primary_category_link'] = get_category_link($primary->cat_ID);
             }
             $record['excerpt'] = get_the_excerpt();
 
-			$record = apply_filters( 'smartslider3_posts_postsbyids_data', $record );
+            $record = apply_filters('smartslider3_posts_postsbyids_data', $record);
 
             $data[$i] = &$record;
             unset($record);
@@ -134,11 +134,8 @@ class N2GeneratorPostsPostsByIDs extends N2GeneratorAbstract {
             add_filter('the_content', 'siteorigin_panels_filter_content');
         }
 
-        $wp_the_query = $tmpWp_the_query;
-
+        $wp_query->post = $tmpPost;
         wp_reset_postdata();
-        $post = $tmpPost;
-        if ($post) setup_postdata($post);
 
         return $data;
     }

@@ -708,7 +708,7 @@ final class Mega_Menu_Style_Manager {
         $current_theme = wp_get_theme();
         $theme_id = $current_theme->template;
 
-        $vars['wp_theme'] = $theme_id;
+        $vars['wp_theme'] = strtolower( str_replace( array( ".", " " ), "_", $theme_id ) );
 
         if ( ! function_exists( 'is_plugin_active' )) {
             include_once( ABSPATH . 'wp-admin/includes/plugin.php' );

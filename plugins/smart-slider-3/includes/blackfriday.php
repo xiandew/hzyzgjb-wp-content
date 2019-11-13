@@ -1,7 +1,7 @@
 <?php
 $current = time();
-if (mktime(0, 0, 0, 6, 4, 2019) <= $current && $current <= mktime(0, 0, 0, 6, 7, 2019)) {
-    if (get_option('ss3_2019_summer') != '1') {
+if (mktime(0, 0, 0, 11, 28, 2019) <= $current && $current <= mktime(0, 0, 0, 12, 4, 2019)) {
+    if (get_option('ss3_bf_2019') != '1') {
 
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_script('jquery');
@@ -9,14 +9,13 @@ if (mktime(0, 0, 0, 6, 4, 2019) <= $current && $current <= mktime(0, 0, 0, 6, 7,
 
         add_action('admin_notices', function () {
             ?>
-            <div style="margin-top:40px;margin-bottom:40px;" class="notice notice-info is-dismissible" data-ss3dismissable="ss3_2019_summer">
-                <h3>Smart Slider 3 Pro - Summer Sale 40% Off</h3>
-                <p>For only three days, you can get <b>Smart Slider 3 Pro - Unlimited plan for $150 which is 40%
-                        off</b>! Head over to our site and enter code <b>SUMMER19</b> at checkout! This hot deal
-                    is active for 3 days only, <b>from 4 to 6 June</b>. Hurry up!</p>
+            <div class="notice notice-info is-dismissible" data-ss3dismissable="ss3_bf_2019">
+                <h3>Smart Slider 3 Pro Black Friday Deal</h3>
+                <p>Don't miss out our biggest sale of the year! Get your <b>Smart Slider 3 Pro</b> with <b>40%
+                        OFF</b>! Limited time offer expires on December 3.</p>
                 <p>
-                    <a class="button button-primary" href="https://smartslider3.com/?coupon=SUMMER19&utm_source=wordpress-free&utm_medium=wordpress-free&utm_campaign=summer" target="_blank">Grab
-                        The Deal</a>
+                    <a class="button button-primary" href="https://smartslider3.com/pricing/?coupon=SAVE4019&utm_source=wpfree&utm_medium=wp&utm_campaign=bf19" target="_blank">Buy
+                        Now!</a>
                     <a class="button button-dismiss" href="#">Dismiss</a>
                 </p>
             </div>
@@ -48,7 +47,7 @@ if (mktime(0, 0, 0, 6, 4, 2019) <= $current && $current <= mktime(0, 0, 0, 6, 7,
         add_action('wp_ajax_ss3_dismiss_admin_notice', function () {
             check_ajax_referer('ss3-dismissible-notice', 'nonce');
 
-            update_option('ss3_2019_summer', '1');
+            update_option('ss3_bf_2019', '1');
             wp_die();
         });
     }

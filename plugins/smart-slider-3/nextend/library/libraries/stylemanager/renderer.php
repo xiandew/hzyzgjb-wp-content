@@ -112,6 +112,13 @@ class N2StyleRenderer {
             'borderradius'    => '0',
             'extra'           => '',
         ), $tabs[0]);
+
+        for ($i = 0; $i < count(self::$mode[$mode]['tabs']); $i++) {
+            if (!isset($tabs[$i])) {
+                $tabs[$i] = array();
+            }
+        }
+
         foreach ($tabs AS $k => $tab) {
             $search[]  = '@tab' . $k;
             $replace[] = self::$style->style($tab);

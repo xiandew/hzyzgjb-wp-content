@@ -54,6 +54,7 @@
     visibility: inherit;
     width: auto;
     word-wrap: break-word;
+    white-space: normal;
 
     &:before,
     &:after {
@@ -190,11 +191,11 @@
 
         li.mega-disable-link > a.mega-menu-link,
         li.mega-menu-megamenu li.mega-disable-link > a.mega-menu-link {
-            cursor: default;
+            cursor: inherit;
         }
 
         li.mega-menu-item-has-children.mega-disable-link > a.mega-menu-link,
-        li.mega-menu-megamenu li.mega-menu-item-has-children.mega-disable-link > a.mega-menu-link  {
+        li.mega-menu-megamenu > li.mega-menu-item-has-children.mega-disable-link > a.mega-menu-link  {
             cursor: pointer;
         }
 
@@ -897,8 +898,8 @@
             }
 
             > a.mega-menu-link > span.mega-indicator {
-                display: inline-block;
-                height: 100%;
+                display: inline;
+                height: auto;
                 width: auto;
                 background: transparent;
                 position: relative;

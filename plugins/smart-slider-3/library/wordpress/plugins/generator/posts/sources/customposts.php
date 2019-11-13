@@ -27,6 +27,7 @@ class N2GeneratorPostsCustomPosts extends N2GeneratorAbstract {
             default:
                 break;
         }
+
         return $variable;
     }
 
@@ -187,10 +188,9 @@ class N2GeneratorPostsCustomPosts extends N2GeneratorAbstract {
     }
 
     protected function _getData($count, $startIndex) {
-        global $post, $wp_the_query;
-        $tmpPost         = $post;
-        $tmpWp_the_query = $wp_the_query;
-        $wp_the_query    = null;
+        global $post, $wp_query;
+        $tmpPost = $post;
+
         if (has_filter('the_content', 'siteorigin_panels_filter_content')) {
             $siteorigin_panels_filter_content = true;
             remove_filter('the_content', 'siteorigin_panels_filter_content');
@@ -257,7 +257,7 @@ class N2GeneratorPostsCustomPosts extends N2GeneratorAbstract {
                     $metaMoreArray = explode('||', $metaMoreValue);
                     if (count($metaMoreArray) >= 2) {
                         $compare = array('compare' => $metaMoreArray[1]);
-                        
+
                         $key_query = array(
                             'key' => $metaMoreArray[0]
                         );
@@ -354,6 +354,7 @@ class N2GeneratorPostsCustomPosts extends N2GeneratorAbstract {
 
             $post = $posts[$i];
             setup_postdata($post);
+            $wp_query->post = $post;
 
             $record['id'] = $post->ID;
 
@@ -526,11 +527,10 @@ class N2GeneratorPostsCustomPosts extends N2GeneratorAbstract {
             add_filter('the_content', 'siteorigin_panels_filter_content');
         }
 
-        $wp_the_query = $tmpWp_the_query;
-
+        $wp_query->post = $tmpPost;
         wp_reset_postdata();
-        $post = $tmpPost;
-        if ($post) setup_postdata($post);
+
+
         if ($this->data->get('identifydatetime', 0)) {
             $translate_dates = $this->data->get('translatedate', '');
             $translateValue  = explode(PHP_EOL, $translate_dates);

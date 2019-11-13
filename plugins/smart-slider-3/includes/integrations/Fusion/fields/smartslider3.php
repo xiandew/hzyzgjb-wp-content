@@ -2,9 +2,7 @@
     Select slider
 </a>
 
-<input
-        type="text"
-        name="{{ param.param_name }}"
-        id="{{ param.param_name }}"
-        value="{{ option_value }}"
-/>
+<input type="text" name="{{ param.param_name }}" id="{{ param.param_name }}" value="{{ option_value }}"/>
+<?php
+N2SSShortcodeInsert::addForcedFrontend();
+?>

@@ -11,20 +11,16 @@
  Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
  Text Domain:  twenty-sixteen-child
 */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
 html {
     -webkit-text-size-adjust: 100%;
     line-height: 1.6;
 }
 
 body {
-    font-family:
-        -apple-system-font, BlinkMacSystemFont,
-        "Helvetica Neue",
-        "PingFang SC",
-		"Helvetica Neue",
-        "Hiragino Sans GB",
-        "Microsoft YaHei",
-        Arial, sans-serif;
+    font-family: Montserrat, "Helvetica Neue", sans-serif;
     color: #333;
 	background: #ffffff;
     letter-spacing: .034em;

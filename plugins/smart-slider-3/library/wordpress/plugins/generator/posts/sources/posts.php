@@ -162,10 +162,8 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
     }
 
     protected function _getData($count, $startIndex) {
-        global $post, $wp_the_query;
-        $tmpPost         = $post;
-        $tmpWp_the_query = $wp_the_query;
-        $wp_the_query    = null;
+        global $post, $wp_query;
+        $tmpPost = $post;
 
         list($orderBy, $order) = N2Parse::parse($this->data->get('postscategoryorder', 'post_date|*|desc'));
 
@@ -290,6 +288,7 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
 
             $post = $posts[$i];
             setup_postdata($post);
+            $wp_query->post = $post;
 
             $record['id']          = $post->ID;
             $record['url']         = get_permalink();
@@ -510,11 +509,8 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
             add_filter('the_content', 'siteorigin_panels_filter_content');
         }
 
-        $wp_the_query = $tmpWp_the_query;
-
+        $wp_query->post = $tmpPost;
         wp_reset_postdata();
-        $post = $tmpPost;
-        if ($post) setup_postdata($post);
 
         if ($timezone_string !== '') {
             date_default_timezone_set($prev_timezone);

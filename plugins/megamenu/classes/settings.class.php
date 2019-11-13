@@ -311,7 +311,21 @@ class Mega_Menu_Settings {
 
         if ( isset( $_POST['settings'] ) && is_array( $_POST['settings'] ) ) {
 
-            $submitted_settings = apply_filters( "megamenu_submitted_settings", $_POST['settings'] );
+            $settings = $_POST['settings'];
+
+            if ( ! isset( $settings['descriptions'] ) ) {
+                $settings['descriptions'] = 'disabled';
+            }
+
+            if ( ! isset( $settings['unbind'] ) ) {
+                $settings['unbind'] = 'disabled';
+            }
+
+            if ( ! isset( $settings['prefix'] ) ) {
+                $settings['prefix'] = 'disabled';
+            }
+
+            $submitted_settings = apply_filters( "megamenu_submitted_settings", $settings );
             $existing_settings = get_option( 'megamenu_settings' );
 
             $new_settings = array_merge( (array)$existing_settings, $submitted_settings );
@@ -758,10 +772,7 @@ class Mega_Menu_Settings {
                             </div>
                         </td>
                         <td class='mega-value'>
-                            <select name='settings[descriptions]'>
-                                <option value='disabled' <?php echo selected( $descriptions == 'disabled'); ?>><?php _e("Disabled", "megamenu"); ?></option>
-                                <option value='enabled' <?php echo selected( $descriptions == 'enabled'); ?>><?php _e("Enabled", "megamenu"); ?></option>
-                            <select>
+                            <input type="checkbox" name="settings[descriptions]" value="enabled" <?php checked( $descriptions, 'enabled' ); ?> />
                             <div class='mega-description'>
                             </div>
                         </td>
@@ -774,10 +785,7 @@ class Mega_Menu_Settings {
                             </div>
                         </td>
                         <td class='mega-value'>
-                            <select name='settings[unbind]'>
-                                <option value='disabled' <?php echo selected( $unbind == 'disabled'); ?>><?php _e("No", "megamenu"); ?></option>
-                                <option value='enabled' <?php echo selected( $unbind == 'enabled'); ?>><?php _e("Yes", "megamenu"); ?></option>
-                            <select>
+                            <input type="checkbox" name="settings[unbind]" value="enabled" <?php checked( $unbind, 'enabled' ); ?> />
                             <div class='mega-description'>
                             </div>
                         </td>
@@ -790,10 +798,7 @@ class Mega_Menu_Settings {
                             </div>
                         </td>
                         <td class='mega-value'>
-                            <select name='settings[prefix]'>
-                                <option value='disabled' <?php echo selected( $prefix == 'disabled'); ?>><?php _e("No", "megamenu"); ?></option>
-                                <option value='enabled' <?php echo selected( $prefix == 'enabled'); ?>><?php _e("Yes", "megamenu"); ?></option>
-                            <select>
+                            <input type="checkbox" name="settings[prefix]" value="enabled" <?php checked( $prefix, 'enabled' ); ?> />
                             <div class='mega-description'>
                             </div>
                         </td>
@@ -1046,7 +1051,7 @@ class Mega_Menu_Settings {
                                 wp_nonce_url( admin_url("admin-post.php"), 'megamenu_add_menu_location' )
                             ) );
 
-                            echo "<br /><p><a class='button button-secondary' href='{$add_location_url}'>" . __("Add another menu location", "megamenu") . "</a></p>";
+                            echo "<br /><p><a class='button button-primary' href='{$add_location_url}'>" . __("Add another menu location", "megamenu") . "</a></p>";
 
                             ?>
 
@@ -1126,7 +1131,7 @@ class Mega_Menu_Settings {
                             <?php wp_nonce_field( 'megamenu_clear_css_cache' ); ?>
                             <input type="hidden" name="action" value="megamenu_clear_css_cache" />
 
-                            <input type='submit' class='button button-secondary' value='<?php _e("Clear CSS Cache", "megamenu"); ?>' />
+                            <input type='submit' class='button button-primary' value='<?php _e("Clear CSS Cache", "megamenu"); ?>' />
 
                             <?php if ( get_transient( 'megamenu_css_last_updated' ) ): ?>
                                 <p><em><small><?php echo sprintf(__("The menu CSS was last updated on %s", "megamenu"), date('l jS F Y H:i:s', get_transient('megamenu_css_last_updated') ) ); ?><small><em></p>
@@ -1205,7 +1210,7 @@ class Mega_Menu_Settings {
                                 echo "<label><input value='json' type='radio' checked='checked' name='format'>" . __("JSON - I want to import this theme into another site I'm developing", "megamenu") . "</label>";
                                 echo "<label><input value='php' type='radio' name='format'>" . __("PHP - I want to distribute this Menu Theme in a WordPress Theme I'm developing", "megamenu") . "<label>";
 
-                                echo "<input type='submit' name='export' class='button button-secondary' value='" . __("Export Theme", "megamenu") . "' />";
+                                echo "<input type='submit' name='export' class='button button-primary' value='" . __("Export Theme", "megamenu") . "' />";
 
                             }
 
@@ -1223,7 +1228,7 @@ class Mega_Menu_Settings {
                             <?php wp_nonce_field( 'megamenu_import_theme' ); ?>
                             <input type="hidden" name="action" value="megamenu_import_theme" />
                             <textarea name='data'></textarea>
-                            <input type='submit' class='button button-secondary' value='<?php _e("Import Theme", "megamenu"); ?>' />
+                            <input type='submit' class='button button-primary' value='<?php _e("Import Theme", "megamenu"); ?>' />
                         </form>
                     </td>
                 </tr>
@@ -1288,14 +1293,6 @@ class Mega_Menu_Settings {
         ) );
 
         if ( ! is_plugin_active('megamenu-pro/megamenu-pro.php') ) {
-
-            //$header_links['rate_us'] = array(
-            //    'url' => 'https://wordpress.org/support/plugin/megamenu/reviews/#new-post',
-            //    'text' => __("If you like this plugin, please vote and support us!", "megamenu"),
-            //    'target' => '_blank',
-            //    'class' => 'mega-star'
-            //);
-
             $header_links['pro'] = array(
                 'url' => 'https://www.megamenu.com/upgrade/?utm_source=free&amp;utm_medium=settings&amp;utm_campaign=pro',
                 'target' => '_mmmpro',
@@ -4135,16 +4132,12 @@ class Mega_Menu_Settings {
 
         wp_enqueue_script( 'accordion' );
         wp_enqueue_script( 'spectrum', MEGAMENU_BASE_URL . 'js/spectrum/spectrum.js', array( 'jquery' ), MEGAMENU_VERSION );
+
+        wp_localize_script( 'spectrum', 'megamenu_spectrum_settings',
+            apply_filters("megamenu_spectrum_localisation", array())
+        );
+
         wp_enqueue_script( 'mega-menu-select2', MEGAMENU_BASE_URL . 'js/select2/select2.min.js', array(), MEGAMENU_VERSION );
-
-        if ( function_exists('wp_enqueue_code_editor') ) {
-            wp_deregister_style('codemirror');
-            wp_deregister_script('codemirror');
-
-            $cm_settings['codeEditor'] = wp_enqueue_code_editor(array('type' => 'text/x-scss'));
-            wp_localize_script('jquery', 'cm_settings', $cm_settings);
-            wp_enqueue_style('wp-codemirror');
-        }
 
         wp_enqueue_script( 'mega-menu-theme-editor', MEGAMENU_BASE_URL . 'js/settings.js', array( 'jquery', 'spectrum', 'code-editor' ), MEGAMENU_VERSION );
 
@@ -4161,6 +4154,14 @@ class Mega_Menu_Settings {
             )
         );
 
+        if ( function_exists('wp_enqueue_code_editor') ) {
+            wp_deregister_style('codemirror');
+            wp_deregister_script('codemirror');
+
+            $cm_settings['codeEditor'] = wp_enqueue_code_editor(array('type' => 'text/x-scss'));
+            wp_localize_script('mega-menu-theme-editor', 'cm_settings', $cm_settings);
+            wp_enqueue_style('wp-codemirror');
+        }
     }
 
 }

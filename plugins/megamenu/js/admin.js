@@ -24,6 +24,8 @@
 
         panel.init = function() {
 
+            var isDirty = false;
+
             panel.log({
                 success: true,
                 data: megamenu.debug_launched + " " + panel.settings.menu_item_id
@@ -36,10 +38,29 @@
                 initialWidth: "75%",
                 scrolling: true,
                 fixed: true,
-                top: "50px",
                 initialHeight: "552",
-                maxHeight: "570",
+                onOpen: function() {
+                    $('body').addClass('mega-colorbox-open');
+                    isDirty = false;
+                },
+                onClosed: function() {
+                    $('body').removeClass('mega-colorbox-open');
+                    isDirty = false;
+                }
             });
+
+            var originalClose = $.colorbox.close;
+            
+            $.colorbox.close = function(){
+                if ( isDirty == false ) {
+                    originalClose();
+                    return;
+                }
+
+                if ( confirm( navMenuL10n.saveAlert ) ) {
+                    originalClose();
+                }
+            };
 
             $.ajax({
                 type: "POST",
@@ -72,13 +93,13 @@
                         wp.customHtmlWidgets.widgetControls = {}; // WordPress 4.9 Custom HTML Widgets
                     }
 
+                    
                 },
                 success: function(response) {
 
                     $("#cboxLoadingGraphic").remove();
 
                     var json = $.parseJSON(response.data);
-
 
                     var header_container = $("<div />").addClass("mm_header_container");
 
@@ -99,17 +120,22 @@
                     $.each(json, function(idx) {
 
                         var content = $("<div />").addClass("mm_content").addClass(idx).html(this.content).hide();
-
+                        
                         // bind save button action
                         content.find("form").on("submit", function(e) {
                             start_saving();
+                            isDirty = false;
                             e.preventDefault();
                             var data = $(this).serialize();
                             $.post(ajaxurl, data, function(submit_response) {
                                 end_saving();
                                 panel.log(submit_response);
                             });
+                        });
 
+                        // register changes made
+                        content.find("form").on("change", function(e) {
+                            isDirty = true;
                         });
 
                         if (idx === "menu_icon") {
@@ -118,6 +144,7 @@
                             // bind save button action
                             form.on("change", function(e) {
                                 start_saving();
+                                isDirty = false;
                                 e.preventDefault();
                                 $("input", form).not(e.target).removeAttr("checked");
                                 var data = $(this).serialize();

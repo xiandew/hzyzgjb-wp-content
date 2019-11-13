@@ -2,8 +2,8 @@
 Contributors: megamenu
 Tags: menu, megamenu, mega menu, navigation, widget, dropdown menu, drag and drop, mobile, responsive, retina, theme editor, widget, shortcode, sidebar, icons, dashicons
 Requires at least: 4.9
-Tested up to: 5.2
-Stable tag: 2.7.1.3
+Tested up to: 5.3
+Stable tag: 2.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,17 @@ https://www.youtube.com/watch?v=44dJwP1AXT8
 
 Documentation & Demo: [https://www.megamenu.com](https://www.megamenu.com)
 
-###Features:
+
+###Mobile
+
+* Automatic support for native touch events
+* Off Canvas Mobile Menu option built in
+* Specify your own Responsive Breakpoint
+* For items with sub menus, choose between "First click opens sub menu, second click closes sub menu" or "First click opens sub menu, second click follows link"
+* Option to hide sub menus on mobile
+* Mobile Toggle Bar designer allows you to tailor the toggle bar elements to fit in with your site design
+
+###Features
 
 * Builds upon the standard WordPress menus system
 * Supports multiple menu locations each with their own configuration
@@ -32,6 +42,15 @@ Documentation & Demo: [https://www.megamenu.com](https://www.megamenu.com)
 * Menu item options including Hide Text, Disable Link, Hide on Mobile etc
 * Align menu items to the left or right of the menu bar
 * Align sub menus to left or right of parent menu item
+
+###Accessibility
+
+* Keyboard Navigation built in
+* `TAB` activates keyboard naviation and navigates through the menu
+* `ENTER` on a parent item opens a sub menu (pressing `ENTER` a second time will respect the "Second Click Behaviour" setting)
+* `ENTER` on a standard item will follow the link
+* `SPACE` toggles the sub menu visibility
+* `ESC` closes all open sub menus
 
 Max Mega Menu is developed with a focus on code quality, performance and usability.
 
@@ -51,7 +70,7 @@ Max Mega Menu is developed with a focus on code quality, performance and usabili
 > * Tabbed Mega Menus
 > * Sticky Menu
 > * Vertical & Accordion Menus
-> * FontAwesome, Genericon & Custom Icons
+> * FontAwesome 5, Genericon & Custom Icons
 > * Custom Item Styling
 > * Menu Logo
 > * Search box
@@ -65,6 +84,9 @@ Max Mega Menu is developed with a focus on code quality, performance and usabili
 > Find out more: [https://www.megamenu.com/upgrade/](https://www.megamenu.com/upgrade/)
 
 == Frequently Asked Questions ==
+
+= Is it compatible with Elementor? =
+Yes! See: [https://www.megamenu.com/documentation/elementor/](https://www.megamenu.com/documentation/elementor/)
 
 = Where do I start? =
 [https://www.megamenu.com/documentation/installation/](https://www.megamenu.com/documentation/installation/)
@@ -109,6 +131,27 @@ See https://www.megamenu.com for more screenshots
 5. Back end: Use the theme editor to change the appearance of your menus
 
 == Changelog ==
+
+= 2.7.3 =
+
+* Improvement: Styling updates for WordPress 5.3
+* Improvement: Add script localisation for spectrum
+* Improvement: Always show WooCommerce Tags and Categories meta boxes on nav-menus.php
+* Fix: Compatibility fix for TemplatesNext ToolKit (menu item settings inaccessible)
+* Fix: Default white-space to normal in menu CSS
+* Fix: Unsaved changes prompt incorrectly appears when changing menu icon
+* Fix: Disable Link cursor style
+* Fix: Edge Case PHP Warning
+
+= 2.7.2 =
+
+* Improvement: Show warning if there are unsaved changes when closing the menu item settings lightbox
+* Improvement: Admin styling updates for menu item settings
+* Improvement: Convert select "Yes/No" dropdowns to checkboxes
+* Fix: CSS compilation fails when theme directory name contains dots and spaces
+* Fix: Arrow position in FireFox - apply display: inline;
+* Fix: Remove the delay in removing the "mobile-open" body class when mobile effect is disabled
+* Fix: Add extra checks before initialising codemirror
 
 = 2.7.1.4 =
 

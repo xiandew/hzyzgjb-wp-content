@@ -30,7 +30,7 @@ jQuery(function ($) {
         }
     });
 
-    if (typeof wp.codeEditor !== 'undefined') {
+    if (typeof wp.codeEditor !== 'undefined' && typeof cm_settings !== 'undefined') {
         if ($('#codemirror').length) {
             wp.codeEditor.initialize($('#codemirror'), cm_settings);
         }
@@ -43,7 +43,7 @@ jQuery(function ($) {
             }, 160);
         });
     }
-
+    
     $(".mm_colorpicker").spectrum({
         preferredFormat: "rgb",
         showInput: true,
@@ -51,7 +51,7 @@ jQuery(function ($) {
         clickoutFiresChange: true,
         showSelectionPalette: true,
         showPalette: true,
-        palette: [ ],
+        palette: $.isArray(megamenu_spectrum_settings.palette) ? megamenu_spectrum_settings.palette : [],
         localStorageKey: "maxmegamenu.themeeditor",
         change: function(color) {
             if (color.getAlpha() === 0) {

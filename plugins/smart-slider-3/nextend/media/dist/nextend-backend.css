@@ -5116,14 +5116,14 @@ License: MIT
 .n2-button-menu-open .n2-button-menu {
     display: none;
     position: absolute;
-    right: 0;
+    left: -50px;
     top: 36px;
     z-index: 3;
 }
 
 html[dir="rtl"] .n2-button-menu-open .n2-button-menu {
-    right: auto;
-    left: 0;
+    right: -50px;
+    left: auto;
 }
 
 .n2-button-menu-inner {

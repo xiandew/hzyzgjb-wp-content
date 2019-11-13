@@ -112,6 +112,12 @@ class Mega_Menu_Nav_Menus {
                 if ( $value == 'mega_menu_meta_box' ) {
                     unset( $hidden[$key] );
                 }
+                if ( $value == 'add-product_cat' ) {
+                    unset( $hidden[$key] );
+                }
+                if ( $value == 'add-product_tag' ) {
+                    unset( $hidden[$key] );
+                }
             }
         }
 
@@ -185,6 +191,10 @@ class Mega_Menu_Nav_Menus {
         // Compatibility fix for WP Disquz media uploader
         wp_deregister_script('wmu-colorbox-js');
         wp_deregister_style('wmu-colorbox-css');
+
+        // Compatibility fix for TemplatesNext ToolKit
+        wp_deregister_script('tx-main');
+        wp_deregister_style('tx-toolkit-admin-style');
 
         wp_enqueue_style( 'colorbox', MEGAMENU_BASE_URL . 'js/colorbox/colorbox.css', false, MEGAMENU_VERSION );
         wp_enqueue_style( 'maxmegamenu', MEGAMENU_BASE_URL . 'css/admin/admin.css', false, MEGAMENU_VERSION );

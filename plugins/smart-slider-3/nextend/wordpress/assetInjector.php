@@ -82,6 +82,12 @@ class N2WordpressAssetInjector {
                 ));
                 remove_action('shutdown', 'N2WordpressAssetInjector::closeOutputBuffers', -1 * self::$priority);
 
+                remove_action('wp_head', 'N2SS3Shortcode::shortcodeModeToNoop', -10000);
+                remove_action('wp_head', 'N2SS3Shortcode::shortcodeModeToNormal', 10000);
+
+                remove_action('wp_enqueue_scripts', 'N2SS3Shortcode::shortcodeModeToNormal', -1000000);
+                remove_action('wp_enqueue_scripts', 'N2SS3Shortcode::shortcodeModeToNoop', 1000000);
+
                 return true;
             }
         }
